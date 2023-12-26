@@ -50,9 +50,9 @@ class Project extends Model
             $housesId[] = $house->id;
         }
 
-        $apartments[] = Apartment::whereIn('house_id', $housesId)->avg('price');
+        $apartmentsAvgPrice[] = Apartment::whereIn('house_id', $housesId)->avg('price');
 
-        return $apartments;
+        return $apartmentsAvgPrice;
     }
 
 }
