@@ -6,7 +6,6 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\ProjectCollection;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use App\Models\Project;
 
@@ -45,5 +44,10 @@ class ProjectController extends Controller
         $project->delete();
 
         return response()->noContent();
+    }
+
+    public function avgPriceToApartments(Project $project)
+    {
+        return $project->getAvgPriceToApartments($project);
     }
 }

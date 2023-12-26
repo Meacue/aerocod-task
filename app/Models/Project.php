@@ -16,18 +16,21 @@ class Project extends Model
 
     protected $appends = [];
 
-    protected $hidden = [];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
     protected $casts = [];
 
     public function apartments()
     {
-        $this->hasMany(Apartment::class)->orderBy("created_at");
+        return $this->hasMany(Apartment::class)->orderBy("created_at");
     }
 
     public function houses()
     {
-        $this->hasMany(House::class)->orderBy("created_at");
+        return $this->hasMany(House::class)->orderBy("created_at");
     }
 
     public function sluggable(): array
@@ -39,9 +42,17 @@ class Project extends Model
         ];
     }
 
-    public function getAvgPriceToApartments()
+    public function getAvgPriceToApartments(Project $project)
     {
-        // return $avgPrice;
+        $houses = House::where('project_id', $project->id)->get();
+        
+        foreach ($houses as $house) {
+            $housesId[] = $house->id;
+        }
+
+        $apartments[] = Apartment::whereIn('house_id', $housesId)->avg('price');
+
+        return $apartments;
     }
 
 }

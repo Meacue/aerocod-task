@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\HouseController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Project;
@@ -24,5 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/projects/{project:slug}', function(Project $project){
     return $project;
 });
+
+Route::get('/projects/{project:slug}/apartments-avg-price', [ProjectController::class, 'avgPriceToApartments']);
 
 Route::apiResource('apartments', ApartmentController::class);

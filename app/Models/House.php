@@ -36,7 +36,7 @@ class House extends Model
 
     public function apartments()
     {
-        $this->hasMany(Apartment::class)->orderBy("created_at");
+       return $this->hasMany(Apartment::class)->orderBy("created_at");
     }
 
      public function getProjectTitleAttribute(): String 
